@@ -1,7 +1,11 @@
-import React from 'react'
+import React from "react";
+import PageNave from "../component/PageNave";
 
 export default function Product() {
   return (
-    <div>Product</div>
-  )
+    <>
+      <PageNave />
+       <div>Product</div>
+    </>
+  );
 }

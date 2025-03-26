@@ -1,7 +1,11 @@
 import React from 'react'
+import PageNave from '../component/PageNave'
 
 export default function Pricing() {
   return (
-    <div>Pricing</div>
+    <>
+    <PageNave/>
+    <div>Pricing</div></>
+
   )
 }
