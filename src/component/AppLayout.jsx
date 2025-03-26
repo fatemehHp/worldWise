@@ -1,7 +1,11 @@
-import React from 'react'
-
+import React from "react";
+import Sidebar from "./Sidebar";
+import styles from './appLayout.module.css'
 export default function AppLayout() {
   return (
-    <div>AppLayout</div>
-  )
+    <div className={styles.app}>
+
+      <Sidebar />
+    </div>
+  );
 }
