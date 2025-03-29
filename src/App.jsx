@@ -7,6 +7,7 @@ import PageNotFound from "./pages/PageNotFound";
 import AppLayout from "./component/AppLayout";
 import Pricing from "./pages/Pricing";
 import CityList from "./component/CityList";
+import CountriesList from "./component/CountriesList";
 
 export const DataContext = createContext();
 const App = () => {
@@ -43,7 +44,7 @@ const App = () => {
 
             <Route index element={<p>list of cities</p>} />
             <Route path="cities" element={<CityList />} />
-            <Route path="countries" element={<p>countries</p>} />
+            <Route path="countries" element={<CountriesList/>} />
 
           </Route>
           <Route path="*" element={<PageNotFound />} />
