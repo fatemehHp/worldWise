@@ -9,6 +9,7 @@ import Pricing from "./pages/Pricing";
 import CityList from "./component/CityList";
 import CountriesList from "./component/CountriesList";
 import City from "./component/City";
+import Form from "./component/Form";
 
 export const DataContext = createContext();
 const App = () => {
@@ -46,6 +47,7 @@ const App = () => {
             <Route index element={<p>list of cities</p>} />
             <Route path="cities" element={<CityList />} />
             <Route path="cities/:id" element={<City />} />
+            <Route path="form" element={< Form/>} />
             <Route path="countries" element={<CountriesList/>} />
 
           </Route>
