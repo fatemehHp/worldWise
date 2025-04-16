@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
 import styles from "./CountryList.module.css";
-import { DataContext } from "../App";
+import { CitiesContext } from "../context/CitiesContext";
 import CountryItem from "./CountryItem";
 import Spinner from "./Spinner";
 import Message from "./Message";
 export default function CountriesList() {
-  const { cities, isLoading, error } = useContext(DataContext);
+  const { cities, isLoading, error } = useContext(CitiesContext);
  const countries= cities.map((cities)=>cities.country)
  const uniqCountries=[...new Set(countries)]
 
