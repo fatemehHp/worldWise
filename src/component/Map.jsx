@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import styles from "./map.module.css";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import "leaflet/dist/leaflet.css";
+import { useGeolocation } from "../hooks/usegeoLocation";
+import Button from "./Button";
 import {
   MapContainer,
   TileLayer,
@@ -16,6 +18,8 @@ export default function Map() {
   const [searchParams] = useSearchParams();
   const mapLat = searchParams.get("lat");
   const mapLng = searchParams.get("lng");
+  const { isLoading, getCurrentPosition, currentPosition } =
+    useGeolocation();
 
   const { cities } = useContext(CitiesContext);
 
@@ -28,8 +32,21 @@ export default function Map() {
 
     [mapLat, mapLng]
   );
+  // set user position in map
+  useEffect(
+    function () {
+      if (currentPosition) {
+        setMapPos([currentPosition.lat,currentPosition.lng]);
+      }
+    },
+
+    [currentPosition]
+  );
   return (
     <div className={styles.mapContainer}>
+      <Button type="primary" onClick={getCurrentPosition}>
+        {isLoading ? "Loading..." : "get user location"}
+      </Button>
       <MapContainer
         center={mapPos}
         zoom={6}
