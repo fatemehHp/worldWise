@@ -10,7 +10,7 @@
         "lat": 38.727881642324164,
         "lng": -9.140900099907554
       },
-      "id": 73930385
+      "id": "73930385"
     },
     {
       "cityName": "Madrid",
@@ -22,7 +22,7 @@
         "lat": 40.46635901755316,
         "lng": -3.7133789062500004
       },
-      "id": 17806751
+      "id": "17806751"
     },
     {
       "cityName": "Berlin",
@@ -34,7 +34,95 @@
         "lat": 52.53586782505711,
         "lng": 13.376933665713324
       },
-      "id": 98443197
+      "id": "98443197"
+    },
+    {
+      "id": "0606",
+      "cityName": "Novaya Usman’",
+      "countryName": "Russian Federation (the)",
+      "date": "2025-03-31T20:30:00.000Z",
+      "notes": "sssss",
+      "position": {
+        "lat": "51.47119988640872",
+        "lng": "39.51205543841908"
+      }
+    },
+    {
+      "id": "1116",
+      "cityName": "Revel",
+      "countryName": "France",
+      "date": "2025-04-07T20:30:00.000Z",
+      "notes": "x",
+      "position": {
+        "lat": "45.386861083141895",
+        "lng": "5.03591388198526"
+      }
+    },
+    {
+      "id": "7311",
+      "cityName": "Revel",
+      "countryName": "France",
+      "date": "2025-03-30T20:30:00.000Z",
+      "notes": "a",
+      "position": {
+        "lat": "45.386861083141895",
+        "lng": "5.03591388198526"
+      }
+    },
+    {
+      "id": "87d4",
+      "cityName": "Revel",
+      "countryName": "France",
+      "date": "2025-03-30T20:30:00.000Z",
+      "notes": "a",
+      "position": {
+        "lat": "45.386861083141895",
+        "lng": "5.03591388198526"
+      }
+    },
+    {
+      "id": "c9ec",
+      "cityName": "Revel",
+      "countryName": "France",
+      "date": "2025-03-30T20:30:00.000Z",
+      "notes": "a",
+      "position": {
+        "lat": "45.386861083141895",
+        "lng": "5.03591388198526"
+      }
+    },
+    {
+      "id": "6ce0",
+      "cityName": "Revel",
+      "countryName": "France",
+      "date": "2025-03-30T20:30:00.000Z",
+      "notes": "a",
+      "position": {
+        "lat": "45.386861083141895",
+        "lng": "5.03591388198526"
+      }
+    },
+    {
+      "id": "4be6",
+      "cityName": "Chareil-Cintrat",
+      "countryName": "France",
+      "date": "2025-04-02T20:30:00.000Z",
+      "notes": "s",
+      "position": {
+        "lat": "46.257681795145736",
+        "lng": "3.234675956533311"
+      }
+    },
+    {
+      "id": "6b2b",
+      "cityName": "Verneuil d'Avre et d'Iton",
+      "countryName": "France",
+      "date": "2025-04-01T20:30:00.000Z",
+      "notes": "s",
+      "position": {
+        "lat": "48.76705863379731",
+        "lng": "0.8810559416828624"
+      }
     }
   ]
 }

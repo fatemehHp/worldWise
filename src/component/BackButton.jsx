@@ -6,7 +6,7 @@ export default function BackButton(   {children}) {
     const navigate = useNavigate();
 
     function handleBack(e){
-        console.log("back")
+    console.log("back")
      e.preventDefault()
      navigate(-1)
     }

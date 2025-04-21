@@ -17,7 +17,6 @@ import { CitiesContext } from "../context/CitiesContext";
 export default function Map() {
   const [mapPos, setMapPos] = useState([40, 0]);
   const[mapLat,mapLng]=useUrlPosition()
-
   const { isLoading, getCurrentPosition, currentPosition } =
     useGeolocation();
 
@@ -57,7 +56,7 @@ export default function Map() {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        {cities.map((item) => {
+        {cities?cities.map((item) => {
           return (
             <Marker
               position={[item.position.lat, item.position.lng]}
@@ -66,7 +65,7 @@ export default function Map() {
               <Popup>{item.cityName}</Popup>
             </Marker>
           );
-        })}
+        }):"wait"}
         <ChangeCenter pos={mapPos} />
         <DetectedEvents />
       </MapContainer>
@@ -83,7 +82,6 @@ function DetectedEvents() {
 
   useMapEvent({
     click: (e) => {
-      console.log(e);
       navigate(`form?lat=${e.latlng.lat}&lng=${e.latlng.lng}`);
     },
   });

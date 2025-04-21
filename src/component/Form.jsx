@@ -1,11 +1,12 @@
-// "https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=0&longitude=0"
-
-import { useEffect, useState } from "react";
+import "react-datepicker/dist/react-datepicker.css";
+import { useContext, useEffect, useState } from "react";
 import BackButton from "./BackButton";
 import styles from "./Form.module.css";
 import Button from "./Button";
-import { useNavigate } from "react-router-dom";
+import Message from "./Message";
 import { useUrlPosition } from "../hooks/useUrlPosition";
+import DatePicker from "react-datepicker";
+import { CitiesContext } from "../context/CitiesContext";
 const baseUrl = "https://api.bigdatacloud.net/data/reverse-geocode-client";
 
 export function convertToEmoji(countryCode) {
@@ -17,23 +18,27 @@ export function convertToEmoji(countryCode) {
 }
 
 function Form() {
-  const[countryName,setCountryName]=useState()
+  const [countryName, setCountryName] = useState();
   const [cityName, setCityName] = useState("");
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState();
   const [notes, setNotes] = useState("");
   const [mapLat, mapLng] = useUrlPosition();
+  const{sendCity}=useContext(CitiesContext)
   const [isFormDataLoading, setIsFormDataLoading] = useState(false);
   useEffect(
     function () {
       async function fetchDataForm() {
         try {
           setIsFormDataLoading(true);
-          const response = await fetch(
-            `${baseUrl}?latitude=${mapLat}&longitude=${mapLng}`
-          );
-          const data = await response.json()
-          setCityName(data.city)
-          setCountryName(data.countryName)
+          if (mapLat && mapLng) {
+            setDate();
+            const response = await fetch(
+              `${baseUrl}?latitude=${mapLat}&longitude=${mapLng}`
+            );
+            const data = await response.json();
+            setCityName(data.city);
+            setCountryName(data.countryName);
+          }
         } catch (error) {
           console.log(error);
         } finally {
@@ -45,31 +50,47 @@ function Form() {
     [mapLat, mapLng]
   );
 
+  if (!mapLat && !mapLng) {
+    return <Message error="click on map" />;
+  }
+  // submot form function
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (!cityName || !date) {
+      return;
+    }
+    const newCity = {
+      cityName,
+      countryName,
+      date,
+      notes,
+      position:{lat:mapLat,lng:mapLng}
+  
+    };
+    sendCity(newCity)
+    
+  }
   return (
-    <form className={styles.form}>
+    <form className={styles.form} onSubmit={handleSubmit}>
       <div className={styles.row}>
-        <label htmlFor="cityName">
-          {
-        cityName?cityName:""
-          }
-        </label>
+        <label htmlFor="cityName">city name</label>
         <input
           id="cityName"
           onChange={(e) => setCityName(e.target.value)}
-          value={cityName}
+          value={cityName ? cityName : ""}
         />
         {/* <span className={styles.flag}>{emoji}</span> */}
       </div>
 
       <div className={styles.row}>
         <label htmlFor="date">When did you go to {cityName}?</label>
-        <input
+
+        <DatePicker
           id="date"
-          onChange={(e) => setDate(e.target.value)}
-          value={date}
+          onChange={(date) => setDate(date)}
+          selected={date}
         />
       </div>
-
       <div className={styles.row}>
         <label htmlFor="notes">Notes about your trip to {cityName}</label>
         <textarea

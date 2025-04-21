@@ -28,19 +28,50 @@ function CitiesProvider({ children }) {
   //  fech cities detail
   async function fetchCitiesData(id) {
     try {
+      setLoading(true)
       const response = await fetch(`http://localhost:8000/cities/${id}`);
       const data = await response.json();
       setCurrentCity(data);
+      setLoading(false)
+
     } catch (error) {
       console.log(error);
     } finally {
-      console.log("hh");
+      setLoading(false)
+
     }
   }
+  // send to api
+  async function sendCity(city) {
+    try {
+      setLoading(true)
+      
+      const res = await fetch("http://localhost:8000/cities", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(city),
+      });
+  
+  
+      const data = await res.json();
+      setCities((cities)=>[...cities,data])
+      setLoading(false)
+
+    } catch (error) {
+      console.error("Error sending city:", error.message);
+    }
+    finally{
+      setLoading(false)
+
+    }
+  }
+  
 
   return (
     <CitiesContext.Provider
-      value={{ cities, isLoading, error, currentCity, fetchCitiesData }}
+      value={{ cities, isLoading, error, currentCity, fetchCitiesData,sendCity }}
     >
       {children}
     </CitiesContext.Provider>
