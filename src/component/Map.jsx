@@ -3,6 +3,7 @@ import styles from "./map.module.css";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import "leaflet/dist/leaflet.css";
 import { useGeolocation } from "../hooks/usegeoLocation";
+import { useUrlPosition } from "../hooks/useUrlPosition";
 import Button from "./Button";
 import {
   MapContainer,
@@ -15,9 +16,8 @@ import {
 import { CitiesContext } from "../context/CitiesContext";
 export default function Map() {
   const [mapPos, setMapPos] = useState([40, 0]);
-  const [searchParams] = useSearchParams();
-  const mapLat = searchParams.get("lat");
-  const mapLng = searchParams.get("lng");
+  const[mapLat,mapLng]=useUrlPosition()
+
   const { isLoading, getCurrentPosition, currentPosition } =
     useGeolocation();
 

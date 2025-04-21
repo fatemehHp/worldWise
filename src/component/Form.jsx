@@ -1,10 +1,12 @@
 // "https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=0&longitude=0"
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import BackButton from "./BackButton";
 import styles from "./Form.module.css";
 import Button from "./Button";
 import { useNavigate } from "react-router-dom";
+import { useUrlPosition } from "../hooks/useUrlPosition";
+const baseUrl = "https://api.bigdatacloud.net/data/reverse-geocode-client";
 
 export function convertToEmoji(countryCode) {
   const codePoints = countryCode
@@ -15,19 +17,42 @@ export function convertToEmoji(countryCode) {
 }
 
 function Form() {
+  const[countryName,setCountryName]=useState()
   const [cityName, setCityName] = useState("");
-  const [country, setCountry] = useState("");
   const [date, setDate] = useState(new Date());
   const [notes, setNotes] = useState("");
-  const navigate=useNavigate()
-function handleBack(e){
- e.preventDefault()
-  navigate(-1)
-}
+  const [mapLat, mapLng] = useUrlPosition();
+  const [isFormDataLoading, setIsFormDataLoading] = useState(false);
+  useEffect(
+    function () {
+      async function fetchDataForm() {
+        try {
+          setIsFormDataLoading(true);
+          const response = await fetch(
+            `${baseUrl}?latitude=${mapLat}&longitude=${mapLng}`
+          );
+          const data = await response.json()
+          setCityName(data.city)
+          setCountryName(data.countryName)
+        } catch (error) {
+          console.log(error);
+        } finally {
+          setIsFormDataLoading(false);
+        }
+      }
+      fetchDataForm();
+    },
+    [mapLat, mapLng]
+  );
+
   return (
     <form className={styles.form}>
       <div className={styles.row}>
-        <label htmlFor="cityName">City name</label>
+        <label htmlFor="cityName">
+          {
+        cityName?cityName:""
+          }
+        </label>
         <input
           id="cityName"
           onChange={(e) => setCityName(e.target.value)}
@@ -55,8 +80,8 @@ function handleBack(e){
       </div>
 
       <div className={styles.buttons}>
-        <Button type="primary" >Add</Button>
-        <BackButton >&larr; Back</BackButton>
+        <Button type="primary">Add</Button>
+        <BackButton>&larr; Back</BackButton>
       </div>
     </form>
   );
