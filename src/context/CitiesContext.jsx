@@ -28,24 +28,22 @@ function CitiesProvider({ children }) {
   //  fech cities detail
   async function fetchCitiesData(id) {
     try {
-      setLoading(true)
+      setLoading(true);
       const response = await fetch(`http://localhost:8000/cities/${id}`);
       const data = await response.json();
       setCurrentCity(data);
-      setLoading(false)
-
+      setLoading(false);
     } catch (error) {
       console.log(error);
     } finally {
-      setLoading(false)
-
+      setLoading(false);
     }
   }
   // send to api
   async function sendCity(city) {
     try {
-      setLoading(true)
-      
+      setLoading(true);
+
       const res = await fetch("http://localhost:8000/cities", {
         method: "POST",
         headers: {
@@ -53,25 +51,39 @@ function CitiesProvider({ children }) {
         },
         body: JSON.stringify(city),
       });
-  
-  
-      const data = await res.json();
-      setCities((cities)=>[...cities,data])
-      setLoading(false)
 
+      const data = await res.json();
+      setCities((cities) => [...cities, data]);
+      setLoading(false);
     } catch (error) {
       console.error("Error sending city:", error.message);
-    }
-    finally{
-      setLoading(false)
-
+    } finally {
+      setLoading(false);
     }
   }
-  
+  // delete from api
+  async function deleteFromApi(e,id) {
+    e.preventDefault()
+    await fetch(`http://localhost:8000/cities/${id}`, {
+      method: "DELETE",
+    });
+    const res = await fetch("http://localhost:8000/cities");
+    const data = await res.json();
+
+    setCities(data);
+  }
 
   return (
     <CitiesContext.Provider
-      value={{ cities, isLoading, error, currentCity, fetchCitiesData,sendCity }}
+      value={{
+        cities,
+        isLoading,
+        error,
+        currentCity,
+        fetchCitiesData,
+        sendCity,
+        deleteFromApi
+      }}
     >
       {children}
     </CitiesContext.Provider>
