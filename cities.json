@@ -1,3 +1,15 @@
 {
-  "cities": []
+  "cities": [
+    {
+      "id": "2bb6",
+      "cityName": "Teruel",
+      "countryName": "Spain",
+      "date": "2025-04-03T20:30:00.000Z",
+      "notes": "aaaaaaaa",
+      "position": {
+        "lat": "40.333729330167984",
+        "lng": "-1.2057935063175942"
+      }
+    }
+  ]
 }

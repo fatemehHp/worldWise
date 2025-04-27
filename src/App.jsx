@@ -9,6 +9,7 @@ import CityList from "./component/CityList";
 import CountriesList from "./component/CountriesList";
 import City from "./component/City";
 import Form from "./component/Form";
+import Login from "./pages/Login";
 import {CitiesProvider} from "./context/CitiesContext";
 
 const App = () => {
@@ -19,6 +20,7 @@ const App = () => {
           <Route index element={<Homepage />} />
           <Route path="product" element={<Product />} />
           <Route path="pricing" element={<Pricing />} />
+          <Route path="login" element={< Login/>} />
           <Route path="app" element={<AppLayout />}>
             <Route index element={<Navigate to="cities" replace />} />
             <Route path="cities" element={<CityList />} />
